@@ -9,7 +9,19 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint './**/*.{ts,js,vue}'",
     "lint:fix": "eslint --fix './**/*.{ts,js,vue}'",
-    "format": "eslint --fix './**/*.{ts,js,vue}' && prettier --write ."
+    "format": "eslint --fix './**/*.{ts,js,vue}' && prettier --write .",
+    "setup:husky": "husky install && husky add .husky/pre-commit 'lint-staged'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -23,6 +35,8 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-unused-imports": "^3.0.0",
     "eslint-plugin-vue": "^9.17.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "nuxt": "^3.7.3",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2",

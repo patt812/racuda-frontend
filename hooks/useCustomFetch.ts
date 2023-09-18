@@ -1,10 +1,10 @@
-import { ref, Ref } from "vue";
-import { useAuthStore } from "~/stores/auth";
+import { ref, Ref } from 'vue';
+import { useAuthStore } from '~/stores/auth';
 
 export const useCustomFetch = () => {
   const auth = useAuthStore();
   const isLoading = ref(false);
-  const error: Ref<any | null> = ref(null);
+  const error: Ref<unknown | null> = ref(null);
 
   const fetcher = async (path: string, options: RequestInit = {}) => {
     isLoading.value = true;
@@ -16,7 +16,7 @@ export const useCustomFetch = () => {
     };
 
     if (auth.token) {
-      headers['Authorization'] = `Bearer ${auth.token}`;
+      headers.Authorization = `Bearer ${auth.token}`;
     }
 
     try {
@@ -32,7 +32,7 @@ export const useCustomFetch = () => {
       }
 
       return { code: response.status, data };
-    } catch (err) {
+    } catch (err: unknown) {
       error.value = err;
       return { code: 500, error: err || 'An error occurred' };
     } finally {
@@ -42,3 +42,5 @@ export const useCustomFetch = () => {
 
   return { fetcher, isLoading, error };
 };
+
+export default useCustomFetch;

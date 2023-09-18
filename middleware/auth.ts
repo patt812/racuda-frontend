@@ -1,11 +1,12 @@
-import { useAuthStore } from '~/stores/auth'
+import { useAuthStore } from '~/stores/auth';
 
 const auth = async () => {
-  const auth = useAuthStore()
+  const authStore = useAuthStore();
 
-  if (!auth.token) {
-    return '/login'
+  if (!authStore.token) {
+    return '/login';
   }
-}
+  return true;
+};
 
-export default auth
+export default auth;

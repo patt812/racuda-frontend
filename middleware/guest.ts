@@ -1,9 +1,10 @@
-import { useAuthStore } from '~/stores/auth'
+import { useAuthStore } from '~/stores/auth';
 
 const guest = async () => {
-  const auth = useAuthStore()
+  const auth = useAuthStore();
   if (auth.token) {
-    return '/home'
+    return '/home';
   }
-}
-export default guest
+  return true;
+};
+export default guest;

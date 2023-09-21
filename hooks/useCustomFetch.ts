@@ -28,6 +28,12 @@ export const useCustomFetch = () => {
       const data = await response.json();
 
       if (!response.ok) {
+        const router = useRouter();
+        if (response.status === 401 && router.currentRoute.value.path !== '/login') {
+          auth.removeToken();
+          router.push('/login');
+          return { code: 401, error: 'Unauthorized' };
+        }
         return { code: response.status, error: data || 'An error occurred' };
       }
 
